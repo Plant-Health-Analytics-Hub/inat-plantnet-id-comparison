@@ -1,0 +1,78 @@
+
+KEY NOTE: need to calculate one tail values for p-values when prediction has a direction
+
+#####
+Hypothesis 1: Computer vision tool produces less accurate results with plants that are outsiders
+Prediction 1a: reduced accuracy for outsiders with more precise location
+
+accuracy|outsider ~ 1 / location precision
+
+Prediction 1b: increased accuracy for natives with more precise location
+
+accuracy|native ~ location precision
+
+Model:
+accuracy ~ nativeStatus * locationPrecision * toolType
+NOTE: potential df issue here
+NOTE: use most current time point
+
+#####
+Hypothesis 2: Computer vision tools with larger user base should be more accurate and improve more over time
+Prediction 2a: iNaturalist is more accurate than PlantNet
+
+accuracy iNaturalist > accuracy PlantNet
+
+Prediction 2b: accuracy increases over time
+
+accuracy time_2 > accuracy time_1
+
+Model:
+accuracy ~ toolType * time + random(locationPrecision)
+
+#####
+Hypothesis 3: Accuracy is higher among more conspicuous plant families
+Prediction 3a: Poaceae accuracy is lower than Asteraceae
+
+accuracy Poaceae < accuracy Asteraceae
+
+Model:
+accuracy ~ family * toolType + random(locationPrecision)
+NOTE: use most current time point
+
+#####
+Hypothesis 4: observations with a complete plant perform better than observations with plant parts
+Prediction 4a: whole plant accuracy higher than plant parts
+
+accuracy whole plant > accuracy plant parts
+
+Prediction 4b: flower picture accuracy should be greater than leaf accuracy
+
+accuracy flower > accuracy leaf
+
+Model:
+accuracy ~ plantParts * toolType + random(locationPrecision)
+NOTE: use most current time point
+NOTE: could group into whole plants, and plant parts, then run a separate model for flowers versus leaves
+NOTE: may be limited by dfs here
+
+#####
+Hypothesis 5: are species of old introductions accurately identified?
+Prediction 5a: accuracy of old introductions equivalent to native species accuracy
+
+accuracy old introductions = accuracy native species
+
+Model:
+accuracy ~ nativeStatus
+NOTE: not sure which ones are old introductions or not
+
+##### Questions
+Question 6: which taxonomic levels have higher accuracy?
+Question 6a: how do these results vary by location?
+
+Model:
+NEED TO PONDER
+
+Question 7: which species is most accurately identified?
+
+Model:
+NEED TO PONDER
